@@ -1,0 +1,91 @@
+@font-face {
+	font-family: "Radio Canada";
+	src: url("/fonts/Radio_Canada/RadioCanada-VariableFont_wdth\,wght.ttf");
+}
+/* ------------------------------------------------ */
+html {
+	scrollbar-color: #faac04 black;
+}
+::-webkit-scrollbar {
+	width: 16px;
+}
+::-webkit-scrollbar-track {
+	background: black;
+}
+::-webkit-scrollbar-thumb {
+	background: #faac04;
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 100;
+	}
+}
+body {
+	background-color: black;
+	animation: 1s ease-in 0s 1 fadeIn;
+	font-family: "Radio Canada";
+	color: white;
+}
+a {
+	text-decoration: none;
+	color: white;
+}
+/* ------------------------------------------------ */
+.top {
+	display: flex;
+	justify-content: center;
+}
+.intro-image {
+	position: relative;
+	text-align: center;
+	color: white;
+}
+/* ------------------------------------------------ */
+#main-search {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+	color: white;
+	font-size: 19px;
+}
+
+#main-search-bar {
+	border: #faac04 solid 3px;
+	width: 30%;
+	padding: 15px;
+	border-radius: 15px;
+	font-size: 15px;
+	background-color: black;
+	color: white;
+}
+#main-search-bar::placeholder {
+	color: white;
+}
+/* ------------------------------------------------ */
+#main-pokemon {
+	color: white;
+}
+#main-pokemon img {
+	width: 100%;
+	height: 100%;
+}
+#main-pokemon article {
+	width: 20%;
+	height: 20%;
+	border-radius: 15px;
+	text-align: center;
+	font-weight: bold;
+}
+/* ------------------------------------------------ */
+.section1 {
+	display: flex;
+	justify-content: space-around;
+	padding-top: 10px;
+}
+.section2 {
+	display: flex;
+	justify-content: space-around;
+}
