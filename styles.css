@@ -68,24 +68,10 @@ a {
 #main-pokemon {
 	color: white;
 }
-#main-pokemon img {
-	width: 100%;
-	height: 100%;
-}
 #main-pokemon article {
-	width: 20%;
-	height: 20%;
-	border-radius: 15px;
-	text-align: center;
-	font-weight: bold;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 /* ------------------------------------------------ */
-.section1 {
-	display: flex;
-	justify-content: space-around;
-	padding-top: 10px;
-}
-.section2 {
-	display: flex;
-	justify-content: space-around;
-}

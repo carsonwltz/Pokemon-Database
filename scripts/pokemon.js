@@ -5,7 +5,7 @@ function renderEverything() {
 }
 
 function fetchPokemon() {
-	fetch("https://pokeapi.co/api/v2/pokemon?limit=151")
+	fetch("https://pokeapi.co/api/v2/pokemon?limit=10&offset=0")
 		.then((response) => response.json())
 		.then(function (allpokemon) {
 			allpokemon.results.forEach(function (pokemon) {
@@ -26,17 +26,16 @@ function fetchPokemonData(pokemon) {
 
 function renderPokemon(pokeData) {
 	let allPokemonContainer = document.getElementById("main-pokemon");
-	let pokeContainer = document.createElement("article"); //div will be used to hold the data/details for indiviual pokemon.{}
+	let pokeContainer = document.createElement("article");
 	createPokeImage(pokeData.id, pokeContainer);
-	let pokeName = document.createElement("h4");
+	let pokeName = document.createElement("h2");
 	pokeName.innerText = pokeData.name;
-	let pokeNumber = document.createElement("p");
+	let pokeNumber = document.createElement("span");
 	pokeNumber.innerText = `#${pokeData.id}`;
-	let pokeTypes = document.createElement("ul"); //ul list will hold the pokemon types
-	createTypes(pokeData.types, pokeTypes); // helper function to go through the types array and create li tags for each one
-
-	pokeContainer.append(pokeName, pokeNumber, pokeTypes); //appending all details to the pokeContainer div
-	allPokemonContainer.appendChild(pokeContainer); //appending that pokeContainer div to the main div which will                                                             hold all the pokemon cards
+	let pokeTypes = document.createElement("ul");
+	createTypes(pokeData.types, pokeTypes);
+	pokeContainer.append(pokeName, pokeNumber, pokeTypes);
+	allPokemonContainer.appendChild(pokeContainer);
 }
 function createTypes(types, ul) {
 	types.forEach(function (type) {
@@ -51,8 +50,7 @@ function createPokeImage(pokeID, containerDiv) {
 	pokeImgContainer.classList.add("image");
 
 	let pokeImage = document.createElement("img");
-	pokeImage.srcset = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeID}.png`;
-
+	pokeImage.srcset = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokeID}.svg`;
 	pokeImgContainer.append(pokeImage);
 	containerDiv.append(pokeImgContainer);
 }
