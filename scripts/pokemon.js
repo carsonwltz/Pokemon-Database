@@ -15,8 +15,7 @@ function fetchPokemon() {
 }
 
 function fetchPokemonData(pokemon) {
-	let url = pokemon.url; // <--- this is saving the pokemon url to a variable to use in the fetch.
-	//Example: https://pokeapi.co/api/v2/pokemon/1/"
+	let url = pokemon.url;
 	fetch(url)
 		.then((response) => response.json())
 		.then(function (pokeData) {
@@ -27,6 +26,7 @@ function fetchPokemonData(pokemon) {
 function renderPokemon(pokeData) {
 	let allPokemonContainer = document.getElementById("main-pokemon");
 	let pokeContainer = document.createElement("article");
+	fetchTypes(pokeData.types[0].type.url, pokeContainer);
 	createPokeImage(pokeData.id, pokeContainer);
 	let pokeName = document.createElement("h2");
 	pokeName.innerText = pokeData.name;
@@ -36,6 +36,23 @@ function renderPokemon(pokeData) {
 	createTypes(pokeData.types, pokeTypes);
 	pokeContainer.append(pokeName, pokeNumber, pokeTypes);
 	allPokemonContainer.appendChild(pokeContainer);
+}
+function fetchTypes(url, containerDiv) {
+	fetch(url)
+		.then((response) => response.json())
+		.then(function (typesData) {
+			renderTypes(typesData, containerDiv);
+		});
+}
+function renderTypes(typesData, containerDiv) {
+	let typeWeakUl = document.createElement("ul");
+	let typeWeak = typesData.damage_relations.double_damage_from;
+	typeWeak.forEach(function (double_damage_from) {
+		let typeWeakLi = document.createElement("li");
+		typeWeakLi.innerText = double_damage_from.name;
+		typeWeakUl.append(typeWeakLi);
+		containerDiv.append(typeWeakUl);
+	});
 }
 function createTypes(types, ul) {
 	types.forEach(function (type) {
