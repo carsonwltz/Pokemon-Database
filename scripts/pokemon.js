@@ -26,7 +26,9 @@ function fetchPokemonData(pokemon) {
 function renderPokemon(pokeData) {
 	let allPokemonContainer = document.getElementById("main-pokemon");
 	let pokeContainer = document.createElement("article");
-	fetchTypes(pokeData.types[0].type.url, pokeContainer);
+	let typesUrl1 = pokeData.types[0].type.url;
+	let typesUrl2 = pokeData.types[1]?.type?.url;
+	fetchTypes(typesUrl1, typesUrl2, pokeContainer);
 	createPokeImage(pokeData.id, pokeContainer);
 	let pokeName = document.createElement("h2");
 	pokeName.innerText = pokeData.name;
@@ -37,12 +39,20 @@ function renderPokemon(pokeData) {
 	pokeContainer.append(pokeName, pokeNumber, pokeTypes);
 	allPokemonContainer.appendChild(pokeContainer);
 }
-function fetchTypes(url, containerDiv) {
+function fetchTypes(url, url2, containerDiv) {
 	fetch(url)
 		.then((response) => response.json())
 		.then(function (typesData) {
 			renderTypes(typesData, containerDiv);
 		});
+	if (url2 !== undefined) {
+		fetch(url2)
+			.then((response) => response.json())
+			.then(function (typesData) {
+				renderTypes(typesData, containerDiv);
+			});
+	} else {
+	}
 }
 function renderTypes(typesData, containerDiv) {
 	let typeWeakUl = document.createElement("ul");
