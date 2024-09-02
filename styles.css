@@ -75,3 +75,10 @@ a {
 	align-items: center;
 }
 /* ------------------------------------------------ */
+.pokeName {
+	font-size: 30px;
+}
+.pokeNumber {
+	font-weight: bold;
+	font-size: 18px;
+}
