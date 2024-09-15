@@ -82,3 +82,15 @@ a {
 	font-weight: bold;
 	font-size: 18px;
 }
+.types {
+	padding: 10px;
+}
+.types span {
+	padding: 5px;
+}
+.weakTypes {
+	padding: 10px;
+}
+.weakTypes span {
+	padding: 5px;
+}
