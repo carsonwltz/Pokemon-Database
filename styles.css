@@ -1,7 +1,3 @@
-@font-face {
-	font-family: "Radio Canada";
-	src: url("/fonts/Radio_Canada/RadioCanada-VariableFont_wdth\,wght.ttf");
-}
 /* ------------------------------------------------ */
 html {
 	scrollbar-color: #faac04 black;
@@ -77,20 +73,34 @@ a {
 /* ------------------------------------------------ */
 .pokeName {
 	font-size: 30px;
+	font-weight: bold;
+}
+.pokeName::first-letter {
+	text-transform: capitalize;
 }
 .pokeNumber {
-	font-weight: bold;
 	font-size: 18px;
+	font-style: italic;
 }
 .types {
-	padding: 10px;
+	padding: 5px;
+	display: flex;
+	font-weight: bold;
 }
-.types span {
+.types div {
 	padding: 5px;
 }
 .weakTypes {
-	padding: 10px;
-}
-.weakTypes span {
 	padding: 5px;
+	text-align: center;
+}
+.weakTypes div {
+	padding: 2px;
+}
+.resistTypes {
+	padding: 5px;
+	text-align: center;
+}
+.resistTypes div {
+	padding: 2px;
 }
