@@ -5,291 +5,50 @@ function renderEverything() {
 }
 
 function fetchPokemon() {
-	fetch("https://pokeapi.co/api/v2/pokemon?limit=10&offset=0")
+	fetch("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0")
 		.then((response) => response.json())
 		.then(function (allpokemon) {
 			allpokemon.results.forEach(function (pokemon) {
-				fetchPokemonData(pokemon);
+				fetchTypesData(pokemon);
 			});
 		});
 }
-
-function fetchPokemonData(pokemon) {
+function fetchTypesData(pokemon) {
+	fetch("./json/types.json")
+		.then((response) => response.json())
+		.then(function (json) {
+			fetchPokemonData(pokemon, json);
+		});
+}
+function fetchPokemonData(pokemon, json) {
 	let url = pokemon.url;
 	fetch(url)
 		.then((response) => response.json())
 		.then(function (pokeData) {
-			renderPokemon(pokeData);
+			renderPokemon(pokeData, json);
 		});
 }
-
-function renderPokemon(pokeData) {
+function renderPokemon(pokeData, json) {
 	let allPokemonContainer = document.getElementById("main-pokemon");
 	let pokeContainer = document.createElement("article");
-	let typesUrl1 = pokeData.types[0].type.url;
-	let typesUrl2 = pokeData.types[1]?.type?.url;
 	let pokeName = document.createElement("div");
 	pokeName.className = "pokeName";
 	pokeName.innerText = pokeData.name;
 	let pokeNumber = document.createElement("div");
 	pokeNumber.className = "pokeNumber";
 	pokeNumber.innerText = `#${pokeData.id}`;
-	let weakTypesDiv = document.createElement("div");
-	weakTypesDiv.className = "weakTypes";
-	let weakTypesIndicator = document.createElement("div");
-	weakTypesIndicator.className = "weakTypesIndicator";
-	weakTypesIndicator.innerText = "Weak Against:";
-	let resistTypesDiv = document.createElement("div");
-	resistTypesDiv.className = "resistTypes";
-	let resistTypesIndicator = document.createElement("div");
-	resistTypesIndicator.className = "resistTypesIndicator";
-	resistTypesIndicator.innerText = "Resists:";
 	createPokeImage(pokeData.id, pokeContainer);
 	pokeContainer.append(pokeName, pokeNumber);
-	fetchWeakTypes(
-		typesUrl1,
-		typesUrl2,
-		pokeContainer,
-		weakTypesDiv,
-		resistTypesDiv,
-		weakTypesIndicator,
-		resistTypesIndicator
-	);
-	createTypes(pokeData.types, pokeContainer);
+	createTypes(pokeData.types, json, pokeContainer);
 	allPokemonContainer.appendChild(pokeContainer);
 }
-function fetchWeakTypes(
-	url,
-	url2,
-	containerDiv,
-	weakTypesDiv,
-	resistTypesDiv,
-	weakTypesIndicator,
-	resistTypesIndicator
-) {
-	fetch(url)
-		.then((response) => response.json())
-		.then(function (typesData) {
-			createWeakTypes(
-				typesData,
-				containerDiv,
-				weakTypesDiv,
-				resistTypesDiv,
-				weakTypesIndicator
-			);
-			createResistTypes(
-				typesData,
-				containerDiv,
-				weakTypesDiv,
-				resistTypesDiv,
-				weakTypesIndicator,
-				resistTypesIndicator
-			);
-		});
-	if (url2 !== undefined) {
-		fetch(url2)
-			.then((response) => response.json())
-			.then(function (typesData) {
-				createWeakTypes(typesData, containerDiv, weakTypesDiv, resistTypesDiv);
-				createResistTypes(
-					typesData,
-					containerDiv,
-					weakTypesDiv,
-					resistTypesDiv
-				);
-			});
-	} else {
-	}
-}
-function createWeakTypes(
-	typesData,
-	containerDiv,
-	weakTypesDiv,
-	___,
-	weakTypesIndicator
-) {
-	let weakTypes = typesData.damage_relations.double_damage_from;
-	if (weakTypesIndicator !== undefined) {
-		weakTypesDiv.append(weakTypesIndicator);
-	} else {
-	}
-	weakTypes.forEach(function (double_damage_from) {
-		let weakTypesContent = document.createElement("div");
-		weakTypesContent.innerText = double_damage_from.name;
-		weakTypesContent.style.textTransform = "capitalize";
-		if (weakTypesContent.innerText === "fire") {
-			weakTypesContent.style.color = "red";
-		} else {
-		}
-		if (weakTypesContent.innerText === "water") {
-			weakTypesContent.style.color = "cornflowerblue";
-		} else {
-		}
-		if (weakTypesContent.innerText === "grass") {
-			weakTypesContent.style.color = "green";
-		} else {
-		}
-		if (weakTypesContent.innerText === "electric") {
-			weakTypesContent.style.color = "yellow";
-		} else {
-		}
-		if (weakTypesContent.innerText === "ice") {
-			weakTypesContent.style.color = "aqua";
-		} else {
-		}
-		if (weakTypesContent.innerText === "fighting") {
-			weakTypesContent.style.color = "orange";
-		} else {
-		}
-		if (weakTypesContent.innerText === "poison") {
-			weakTypesContent.style.color = "purple";
-		} else {
-		}
-		if (weakTypesContent.innerText === "ground") {
-			weakTypesContent.style.color = "brown";
-		} else {
-		}
-		if (weakTypesContent.innerText === "flying") {
-			weakTypesContent.style.color = "darkcyan";
-		} else {
-		}
-		if (weakTypesContent.innerText === "psychic") {
-			weakTypesContent.style.color = "indianred";
-		} else {
-		}
-		if (weakTypesContent.innerText === "bug") {
-			weakTypesContent.style.color = "lightgreen";
-		} else {
-		}
-		if (weakTypesContent.innerText === "rock") {
-			weakTypesContent.style.color = "darksalmon";
-		} else {
-		}
-		if (weakTypesContent.innerText === "ghost") {
-			weakTypesContent.style.color = "indigo";
-		} else {
-		}
-		if (weakTypesContent.innerText === "dark") {
-			weakTypesContent.style.color = "gray";
-		} else {
-		}
-		if (weakTypesContent.innerText === "dragon") {
-			weakTypesContent.style.color = "blue";
-		} else {
-		}
-		if (weakTypesContent.innerText === "steel") {
-			weakTypesContent.style.color = "cadetblue";
-		} else {
-		}
-		if (weakTypesContent.innerText === "fairy") {
-			weakTypesContent.style.color = "hotpink";
-		} else {
-		}
-		if (weakTypesContent.innerText === "normal") {
-		} else {
-		}
-		weakTypesDiv.append(weakTypesContent);
-		containerDiv.append(weakTypesDiv);
-	});
-}
-function createResistTypes(
-	typesData,
-	containerDiv,
-	___,
-	resistTypesDiv,
-	___,
-	resistTypesIndicator
-) {
-	let resistTypes = typesData.damage_relations.half_damage_from;
-	if (resistTypesIndicator !== undefined) {
-		resistTypesDiv.append(resistTypesIndicator);
-	} else {
-	}
-	resistTypes.forEach(function (half_damage_from) {
-		let resistTypesContent = document.createElement("div");
-		resistTypesContent.innerText = half_damage_from.name;
-		resistTypesContent.style.textTransform = "capitalize";
-		if (resistTypesContent.innerText === "fire") {
-			resistTypesContent.style.color = "red";
-		} else {
-		}
-		if (resistTypesContent.innerText === "water") {
-			resistTypesContent.style.color = "cornflowerblue";
-		} else {
-		}
-		if (resistTypesContent.innerText === "grass") {
-			resistTypesContent.style.color = "green";
-		} else {
-		}
-		if (resistTypesContent.innerText === "electric") {
-			resistTypesContent.style.color = "yellow";
-		} else {
-		}
-		if (resistTypesContent.innerText === "ice") {
-			resistTypesContent.style.color = "aqua";
-		} else {
-		}
-		if (resistTypesContent.innerText === "fighting") {
-			resistTypesContent.style.color = "orange";
-		} else {
-		}
-		if (resistTypesContent.innerText === "poison") {
-			resistTypesContent.style.color = "purple";
-		} else {
-		}
-		if (resistTypesContent.innerText === "ground") {
-			resistTypesContent.style.color = "brown";
-		} else {
-		}
-		if (resistTypesContent.innerText === "flying") {
-			resistTypesContent.style.color = "darkcyan";
-		} else {
-		}
-		if (resistTypesContent.innerText === "psychic") {
-			resistTypesContent.style.color = "indianred";
-		} else {
-		}
-		if (resistTypesContent.innerText === "bug") {
-			resistTypesContent.style.color = "lightgreen";
-		} else {
-		}
-		if (resistTypesContent.innerText === "rock") {
-			resistTypesContent.style.color = "darksalmon";
-		} else {
-		}
-		if (resistTypesContent.innerText === "ghost") {
-			resistTypesContent.style.color = "indigo";
-		} else {
-		}
-		if (resistTypesContent.innerText === "dark") {
-			resistTypesContent.style.color = "gray";
-		} else {
-		}
-		if (resistTypesContent.innerText === "dragon") {
-			resistTypesContent.style.color = "blue";
-		} else {
-		}
-		if (resistTypesContent.innerText === "steel") {
-			resistTypesContent.style.color = "cadetblue";
-		} else {
-		}
-		if (resistTypesContent.innerText === "fairy") {
-			resistTypesContent.style.color = "hotpink";
-		} else {
-		}
-		if (resistTypesContent.innerText === "normal") {
-		} else {
-		}
-		resistTypesDiv.append(resistTypesContent);
-		containerDiv.append(resistTypesDiv);
-	});
-}
-function createTypes(types, containerDiv) {
+function createTypes(types, json, containerDiv) {
 	let typesDiv = document.createElement("div");
 	typesDiv.className = "types";
 	types.forEach(function (type) {
 		let typesContent = document.createElement("div");
-		typesContent.innerText = type["type"]["name"];
+		let typesContentType = type["type"]["name"];
+		typesContent.innerText = typesContentType;
 		typesContent.style.textTransform = "capitalize";
 		if (typesContent.innerText === "fire") {
 			typesContent.style.color = "red";
@@ -364,9 +123,93 @@ function createTypes(types, containerDiv) {
 		}
 		typesDiv.append(typesContent);
 		containerDiv.append(typesDiv);
+		createTypesWeaknesses(typesContentType, json, containerDiv);
 	});
 }
-
+function createTypesWeaknesses(type, json, containerDiv) {
+	let weakness = json[type][0]["double_damage_from"];
+	let weaknessTypeDiv = document.createElement("div");
+	weaknessTypeDiv.className = "weaknessTypes";
+	weakness.forEach(function (weakness) {
+		let weaknessDiv = document.createElement("div");
+		let weaknessName = weakness.name;
+		weaknessDiv.innerText = weaknessName;
+		weaknessDiv.style.textTransform = "capitalize";
+		if (weaknessDiv.innerText === "fire") {
+			weaknessDiv.style.color = "red";
+		} else {
+		}
+		if (weaknessDiv.innerText === "water") {
+			weaknessDiv.style.color = "cornflowerblue";
+		} else {
+		}
+		if (weaknessDiv.innerText === "grass") {
+			weaknessDiv.style.color = "green";
+		} else {
+		}
+		if (weaknessDiv.innerText === "electric") {
+			weaknessDiv.style.color = "yellow";
+		} else {
+		}
+		if (weaknessDiv.innerText === "ice") {
+			weaknessDiv.style.color = "aqua";
+		} else {
+		}
+		if (weaknessDiv.innerText === "fighting") {
+			weaknessDiv.style.color = "orange";
+		} else {
+		}
+		if (weaknessDiv.innerText === "poison") {
+			weaknessDiv.style.color = "purple";
+		} else {
+		}
+		if (weaknessDiv.innerText === "ground") {
+			weaknessDiv.style.color = "brown";
+		} else {
+		}
+		if (weaknessDiv.innerText === "flying") {
+			weaknessDiv.style.color = "darkcyan";
+		} else {
+		}
+		if (weaknessDiv.innerText === "psychic") {
+			weaknessDiv.style.color = "indianred";
+		} else {
+		}
+		if (weaknessDiv.innerText === "bug") {
+			weaknessDiv.style.color = "lightgreen";
+		} else {
+		}
+		if (weaknessDiv.innerText === "rock") {
+			weaknessDiv.style.color = "darksalmon";
+		} else {
+		}
+		if (weaknessDiv.innerText === "ghost") {
+			weaknessDiv.style.color = "indigo";
+		} else {
+		}
+		if (weaknessDiv.innerText === "dark") {
+			weaknessDiv.style.color = "gray";
+		} else {
+		}
+		if (weaknessDiv.innerText === "dragon") {
+			weaknessDiv.style.color = "blue";
+		} else {
+		}
+		if (weaknessDiv.innerText === "steel") {
+			weaknessDiv.style.color = "cadetblue";
+		} else {
+		}
+		if (weaknessDiv.innerText === "fairy") {
+			weaknessDiv.style.color = "hotpink";
+		} else {
+		}
+		if (weaknessDiv.innerText === "normal") {
+		} else {
+		}
+		weaknessTypeDiv.append(weaknessDiv);
+		containerDiv.append(weaknessTypeDiv);
+	});
+}
 function createPokeImage(pokeID, containerDiv) {
 	let imgContainer = document.createElement("div");
 	let img = document.createElement("img");
