@@ -1,10 +1,10 @@
-function renderEverything() {
+async function renderEverything() {
 	let allPokemonContainer = document.querySelector("#main-pokemon");
 	allPokemonContainer.innerText = "";
 	fetchPokemon();
 }
 
-function fetchPokemon() {
+async function fetchPokemon() {
 	fetch("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0")
 		.then((response) => response.json())
 		.then(function (allpokemon) {
@@ -13,14 +13,14 @@ function fetchPokemon() {
 			});
 		});
 }
-function fetchTypesData(pokemon) {
+async function fetchTypesData(pokemon) {
 	fetch("./json/types.json")
 		.then((response) => response.json())
 		.then(function (json) {
 			fetchPokemonData(pokemon, json);
 		});
 }
-function fetchPokemonData(pokemon, json) {
+async function fetchPokemonData(pokemon, json) {
 	let url = pokemon.url;
 	fetch(url)
 		.then((response) => response.json())
@@ -28,7 +28,7 @@ function fetchPokemonData(pokemon, json) {
 			renderPokemon(pokeData, json);
 		});
 }
-function renderPokemon(pokeData, json) {
+async function renderPokemon(pokeData, json) {
 	let allPokemonContainer = document.getElementById("main-pokemon");
 	let pokeContainer = document.createElement("article");
 	let pokeName = document.createElement("div");
@@ -42,10 +42,18 @@ function renderPokemon(pokeData, json) {
 	createTypes(pokeData.types, json, pokeContainer);
 	allPokemonContainer.appendChild(pokeContainer);
 }
-function createTypes(types, json, containerDiv) {
+async function createPokeImage(pokeID, containerDiv) {
+	let imgContainer = document.createElement("div");
+	let img = document.createElement("img");
+	imgContainer.className = "img";
+	img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokeID}.svg`;
+	imgContainer.append(img);
+	containerDiv.append(imgContainer);
+}
+async function createTypes(types, json, containerDiv) {
 	let typesDiv = document.createElement("div");
 	typesDiv.className = "types";
-	types.forEach(function (type) {
+	types.forEach(async function (type) {
 		let typesContent = document.createElement("div");
 		let typesContentType = type["type"]["name"];
 		typesContent.innerText = typesContentType;
@@ -122,15 +130,15 @@ function createTypes(types, json, containerDiv) {
 		} else {
 		}
 		typesDiv.append(typesContent);
-		containerDiv.append(typesDiv);
+		await containerDiv.append(typesDiv);
 		createTypesWeaknesses(typesContentType, json, containerDiv);
 	});
 }
-function createTypesWeaknesses(type, json, containerDiv) {
+async function createTypesWeaknesses(type, json, containerDiv) {
 	let weakness = json[type][0]["double_damage_from"];
 	let weaknessTypeDiv = document.createElement("div");
 	weaknessTypeDiv.className = "weaknessTypes";
-	weakness.forEach(function (weakness) {
+	weakness.forEach(async function (weakness) {
 		let weaknessDiv = document.createElement("div");
 		let weaknessName = weakness.name;
 		weaknessDiv.innerText = weaknessName;
@@ -209,13 +217,5 @@ function createTypesWeaknesses(type, json, containerDiv) {
 		weaknessTypeDiv.append(weaknessDiv);
 		containerDiv.append(weaknessTypeDiv);
 	});
-}
-function createPokeImage(pokeID, containerDiv) {
-	let imgContainer = document.createElement("div");
-	let img = document.createElement("img");
-	imgContainer.className = "img";
-	img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokeID}.svg`;
-	imgContainer.append(img);
-	containerDiv.append(imgContainer);
 }
 renderEverything();
