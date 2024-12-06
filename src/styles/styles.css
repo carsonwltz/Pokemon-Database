@@ -39,6 +39,20 @@ a {
 	text-align: center;
 	color: white;
 }
+.main-links {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 10px;
+}
+.main-links a {
+	color: #faac04;
+	font-family: "Courier New", Courier, monospace;
+	padding: 15px;
+	font-size: 20px;
+	font-weight: bold;
+	text-decoration: underline;
+}
 /* ------------------------------------------------ */
 #main-search {
 	display: flex;
@@ -91,25 +105,21 @@ a {
 .types div {
 	padding: 5px;
 }
-.weakTypes {
-	padding: 5px;
+.headers {
+	display: flex;
+}
+.properties {
+	display: flex;
+}
+.properties div {
 	text-align: center;
 }
-.weakTypes div {
-	padding: 2px;
-}
-.weakTypesIndicator {
-	font-size: 20px;
-	font-weight: bold;
+.weaknessTypes {
+	padding: 5px;
 }
 .resistTypes {
 	padding: 5px;
-	text-align: center;
 }
-.resistTypes div {
-	padding: 2px;
-}
-.resistTypesIndicator {
-	font-size: 20px;
-	font-weight: bold;
+.immuneTypes {
+	padding: 5px;
 }
