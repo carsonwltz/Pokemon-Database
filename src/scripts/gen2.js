@@ -14,7 +14,7 @@ async function fetchPokemon() {
 		});
 }
 async function fetchTypesData(pokemon) {
-	fetch("/src/json/types.json")
+	fetch("src/json/types.json")
 		.then((response) => response.json())
 		.then(function (json) {
 			fetchPokemonData(pokemon, json);
