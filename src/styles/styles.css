@@ -74,6 +74,11 @@ a {
 #main-search-bar::placeholder {
 	color: white;
 }
+@media only screen and (max-width: 768px) {
+	#main-search-bar {
+		width: 90%;
+	}
+}
 /* ------------------------------------------------ */
 #main-pokemon {
 	color: white;
@@ -122,4 +127,10 @@ a {
 }
 .immuneTypes {
 	padding: 5px;
+}
+@media only screen and (max-width: 768px) {
+	article img {
+		width: 200px;
+		height: 200px;
+	}
 }

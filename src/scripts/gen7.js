@@ -5,7 +5,7 @@ async function renderEverything() {
 }
 
 async function fetchPokemon() {
-	fetch("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0")
+	fetch("https://pokeapi.co/api/v2/pokemon?limit=88&offset=721")
 		.then((response) => response.json())
 		.then(function (allpokemon) {
 			allpokemon.results.forEach(function (pokemon) {

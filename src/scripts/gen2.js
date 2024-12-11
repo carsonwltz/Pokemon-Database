@@ -49,7 +49,7 @@ async function createPokeImage(pokeID, containerDiv) {
 	let imgContainer = document.createElement("div");
 	let img = document.createElement("img");
 	imgContainer.className = "img";
-	img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokeID}.svg`;
+	img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeID}.png`;
 	imgContainer.append(img);
 	containerDiv.append(imgContainer);
 }
